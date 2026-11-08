@@ -1,0 +1,456 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>A1 Website Questions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one section per screen, big tap targets, sticky Back/Next bar, final review screen that sends answers to WhatsApp. */
+:root{
+  --bg:#EEF2F1; --card:#FFFFFF; --ink:#11201E; --muted:#51635F; --line:#C5D2CF;
+  --accent:#0B6B63; --on-accent:#FFFFFF; --soft:#E3EEEC; --chip-on:#0B6B63;
+  --f-blue:#2F6FDB; --f-white:#F2F2EC; --f-red:#D63B2F; --f-green:#2E9B5A; --f-yellow:#F2B52C;
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'Figtree','Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1615; --card:#152322; --ink:#E6EFEC; --muted:#9DB1AC; --line:#2C403D;
+    --accent:#3DC2B3; --on-accent:#04201D; --soft:#1C302E; --chip-on:#3DC2B3;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1615; --card:#152322; --ink:#E6EFEC; --muted:#9DB1AC; --line:#2C403D;
+  --accent:#3DC2B3; --on-accent:#04201D; --soft:#1C302E; --chip-on:#3DC2B3;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 17px/1.5 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 12px;
+}
+.wrap{max-width:640px;margin:0 auto;min-width:0}
+.flags{height:6px;margin-top:10px;border-radius:3px;
+  background:linear-gradient(90deg,var(--f-blue) 0 20%,var(--f-white) 0 40%,var(--f-red) 0 60%,var(--f-green) 0 80%,var(--f-yellow) 0 100%)}
+header{padding:18px 0 14px;display:grid;gap:10px}
+h1{font:700 30px/1.1 var(--display);margin:0;text-wrap:balance}
+.sub{margin:0;color:var(--muted);font-size:16px}
+.jump{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--muted)}
+.jump select{flex:1;min-width:0}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0}
+.meta{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 18px;display:grid;gap:26px;min-width:0}
+.panel>div,.panel>fieldset{min-width:0}
+h2{font:700 24px/1.15 var(--display);margin:0;text-wrap:balance}
+.lead{margin:6px 0 0;color:var(--muted);font-size:16px}
+.q{display:grid;gap:8px;border:0;padding:0;margin:0}
+.ql{font-weight:600;font-size:17px;padding:0;margin:0}
+.hint{margin:0;color:var(--muted);font-size:15px}
+input[type=text],textarea,select{
+  width:100%;font:400 16px/1.4 var(--body);color:var(--ink);background:var(--card);
+  border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;min-height:48px;
+}
+textarea{resize:vertical;min-height:96px}
+select{padding-right:8px}
+input:focus-visible,textarea:focus-visible,select:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;
+  border:1.5px solid var(--line);border-radius:999px;background:var(--card);cursor:pointer;font-size:16px;line-height:1.25}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip.on{background:var(--chip-on);border-color:var(--chip-on);color:var(--on-accent);font-weight:600}
+.chip:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+.rows{display:grid;gap:12px}
+.row{background:var(--soft);border-radius:12px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row h3{grid-column:1/-1;margin:0;font:600 15px var(--body);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.f{display:grid;gap:4px;min-width:0}
+.f.full{grid-column:1/-1}
+.f span{font-size:14px;color:var(--muted)}
+.note{margin:0;padding:12px 14px;border-radius:10px;background:var(--soft);font-size:15px;border-left:4px solid var(--f-yellow)}
+.btn{font:600 16px var(--body);min-height:48px;padding:0 20px;border-radius:12px;border:1.5px solid var(--accent);
+  background:var(--accent);color:var(--on-accent);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;text-align:center}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.big{min-height:56px;font-size:18px;width:100%}
+.btn:disabled{opacity:.4;cursor:default}
+.nav{position:sticky;bottom:0;margin-top:18px;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));
+  background:var(--bg);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav .count{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.out{width:100%;min-height:260px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace}
+.actions{display:grid;gap:10px}
+#msg{margin:0;min-height:1.5em;font-size:15px;color:var(--muted)}
+.link{background:none;border:0;padding:8px 0;font:inherit;font-size:15px;color:var(--muted);text-decoration:underline;cursor:pointer;justify-self:start}
+@media (max-width:480px){.row{grid-template-columns:1fr}.f{grid-column:1/-1}}
+</style>
+
+<div class="wrap">
+  <div class="flags" aria-hidden="true"></div>
+  <header>
+    <h1>A1 Motorbike Rental &amp; Tours: website questions</h1>
+    <p class="sub">Namaste. Answer what you know and skip the rest. Your answers save on this phone, so you can stop and come back anytime.</p>
+    <label class="jump">Go to <select id="jump" aria-label="Go to section"></select></label>
+    <div class="bar" aria-hidden="true"><i id="barfill"></i></div>
+    <div class="meta"><span id="stepLabel"></span><span id="answered"></span></div>
+  </header>
+  <main id="stage"></main>
+  <div class="nav">
+    <button type="button" class="btn ghost" id="back">Back</button>
+    <span class="count" id="navCount"></span>
+    <button type="button" class="btn" id="next">Next</button>
+  </div>
+</div>
+
+<script>
+const SEND_TO = ""; // WhatsApp number to receive answers, digits only with country code (e.g. 9779812345678). Empty = he picks the chat.
+const KEY = "a1-website-answers-v1";
+
+const SECTIONS = [
+{ id:"biz", title:"Your business", lead:"We already have your WhatsApp, Instagram, Facebook and map link, so those are skipped.", qs:[
+  {id:"name", t:"text", q:"Business name, exactly as you want it on the website", s:"Business name", ph:"A1 Motorbike Rental & Tours"},
+  {id:"tag", t:"text", q:"Slogan or tagline (if you have one)", s:"Tagline"},
+  {id:"since", t:"text", q:"Which year did you start?", s:"Started", im:"numeric", ph:"2015"},
+  {id:"owner", t:"text", q:"Owner name", s:"Owner"},
+  {id:"story", t:"long", q:"Your story in a few lines", s:"Story", hint:"How and why did you start? You can also send a voice note on WhatsApp."},
+  {id:"email", t:"text", q:"Email address", s:"Email", im:"email"},
+  {id:"hours", t:"text", q:"Opening days and hours", s:"Hours", ph:"Every day, 7 am to 8 pm"},
+  {id:"lic", t:"text", q:"Company registration or tourism licence numbers (optional)", s:"Licence numbers"},
+  {id:"cust", t:"many", q:"Who are your customers?", s:"Customers", opts:["Foreign tourists","Indian riders","Nepali riders","Groups","Solo riders"]},
+  {id:"lang", t:"many", q:"Which languages do you speak with customers?", s:"Languages spoken", opts:["English","Nepali","Hindi","Chinese","German","Hebrew","Other"]}
+]},
+{ id:"look", title:"Logo and look", lead:"This decides colours and mood of the website.", qs:[
+  {id:"logo", t:"one", q:"Do you have a logo?", s:"Logo", opts:["Yes, I will send it on WhatsApp","No, please make one","Not sure"], hint:"Send the original file, not a screenshot."},
+  {id:"colorfeel", t:"one", q:"Which look do you like?", s:"Look", opts:["Dark and bold (black + orange)","Earthy vintage (olive, brown)","Clean and bright (white + blue/red)","Use my logo colours","You decide"]},
+  {id:"brandcol", t:"text", q:"Your brand colours (if any)", s:"Brand colours", ph:"Red and black"},
+  {id:"feel", t:"many", q:"What feeling should the website give?", s:"Feeling", opts:["Rugged adventure","Premium","Fun and friendly","Budget friendly","Serious and professional"]},
+  {id:"focus", t:"one", q:"What is more important on the website?", s:"Main focus", opts:["Bike rental","Guided tours","Both equally"]},
+  {id:"likes", t:"long", q:"Websites you like, and why", s:"Sites I like", hint:"Paste links if you have them."},
+  {id:"dislikes", t:"long", q:"Anything you do not like on rideultimateadventure.com or heartsandtears.com?", s:"Do not like"}
+]},
+{ id:"bikes", title:"Motorbikes", lead:"We already have your 5 bike models. Add how many you have and the prices.", qs:[
+  {id:"bikes", t:"group", q:"Your bikes", item:"Bike", add:"Add another bike", rows:5, preset:["Royal Enfield Classic 350","Royal Enfield Scram 411","Hero Xpulse 200 4V","Honda Dio 110 (scooter)","TVS NTORQ 125 (scooter)"], fields:[
+    {k:"model", l:"Model", w:"full", ph:"Royal Enfield Himalayan 450"},
+    {k:"qty", l:"How many", im:"numeric"},
+    {k:"day", l:"Price per day"},
+    {k:"week", l:"Price per week"},
+    {k:"dep", l:"Deposit"}
+  ]},
+  {id:"cur", t:"many", q:"Show prices in", s:"Currency", opts:["NPR","USD","INR","EUR"]},
+  {id:"showp", t:"one", q:"Should prices be shown on the website?", s:"Show prices", opts:["Yes, show prices","No, say contact for price"], hint:"Showing prices usually brings more bookings and ranks better on Google."},
+  {id:"incl", t:"many", q:"What comes with the bike?", s:"Comes with bike", opts:["Helmet","Riding jacket","Gloves","Knee guards","Saddle bags","Phone holder","GoPro mount","Rain cover","Toolkit"]},
+  {id:"fuel", t:"one", q:"Fuel", s:"Fuel", opts:["Included","Customer pays","Depends on package"]},
+  {id:"km", t:"text", q:"Kilometre limit", s:"Km limit", ph:"Unlimited, or 200 km per day"},
+  {id:"depwhat", t:"text", q:"Deposit: what do you keep?", s:"Deposit held", ph:"Cash, passport, licence"},
+  {id:"deliv", t:"text", q:"Delivery and pickup at the customer's location: free, or is there a charge?", s:"Delivery / pickup charge", ph:"Free in Lakeside, Rs 300 outside"},
+  {id:"oneway", t:"one", q:"One way rental (pick up in one city, drop in another)?", s:"One way", opts:["Yes","No","Sometimes"]},
+  {id:"outside", t:"text", q:"Can bikes go outside the city (Mustang, Indian border)? Any extra charge?", s:"Outside city"},
+  {t:"note", q:"Please send 2 or 3 photos of every bike on WhatsApp: front, side and a close-up."}
+]},
+{ id:"rules", title:"Rental rules", lead:"Customers ask these before booking. Clear rules mean fewer questions to you.", qs:[
+  {id:"licreq", t:"many", q:"Which driving licences do you accept?", s:"Licences accepted", opts:["International licence","Nepali licence","Home-country licence"]},
+  {id:"age", t:"text", q:"Minimum age", s:"Minimum age", im:"numeric"},
+  {id:"ins", t:"one", q:"Insurance", s:"Insurance", opts:["Included","Optional extra","Not available"]},
+  {id:"insd", t:"long", q:"What does the insurance cover?", s:"Insurance details"},
+  {id:"break", t:"long", q:"What happens if the bike breaks down or has an accident?", s:"Breakdown / accident"},
+  {id:"cancel", t:"long", q:"Cancellation and refund rule", s:"Cancellation"},
+  {id:"late", t:"text", q:"Late return fee", s:"Late fee"},
+  {id:"pay", t:"many", q:"How can customers pay?", s:"Payment methods", opts:["Cash","Card","eSewa","Khalti","Bank transfer","PayPal","Wise"]},
+  {id:"adv", t:"one", q:"Advance payment to confirm a booking?", s:"Advance payment", opts:["No","Yes, a small amount","Yes, full payment"]}
+]},
+{ id:"pkgs", title:"Rental packages", lead:"Packages are what customers pick on the website.", qs:[
+  {id:"pkgtypes", t:"many", q:"Which packages do you want to show?", s:"Package types", opts:["Hourly or half day","1 day","3 days","7 days","Monthly","Bike + guide","Bike + backup jeep","Couple (rider + passenger)","Other"]},
+  {id:"pkgs", t:"group", q:"Details of each package", item:"Package", add:"Add another package", rows:3, fields:[
+    {k:"name", l:"Package name", w:"full", ph:"3 Day Explorer"},
+    {k:"price", l:"Price"},
+    {k:"inc", l:"What is included", w:"full", t:"long"}
+  ]},
+  {id:"disc", t:"long", q:"Any discounts?", s:"Discounts", hint:"For example group, long rental, off-season, returning customers."}
+]},
+{ id:"tours", title:"Guided tours", lead:"Each tour gets its own page with a day by day plan.", qs:[
+  {id:"tours", t:"group", q:"Your tours", item:"Tour", add:"Add another tour", rows:3, fields:[
+    {k:"name", l:"Tour name", w:"full", ph:"Upper Mustang"},
+    {k:"days", l:"Number of days", im:"numeric"},
+    {k:"price", l:"Price per rider"},
+    {k:"dates", l:"Dates (fixed dates or any day)", w:"full"},
+    {k:"plan", l:"Day by day plan: place, km, hotel", w:"full", t:"long"}
+  ]},
+  {id:"tinc", t:"many", q:"Tour price usually includes", s:"Tour includes", opts:["Bike","Fuel","Guide","Mechanic","Backup jeep","Hotels","Meals","Permits","Airport pickup"]},
+  {id:"texc", t:"text", q:"Tour price does not include", s:"Tour does not include", ph:"Flights, visa, tips, drinks"},
+  {id:"tgroup", t:"text", q:"Group size (minimum and maximum riders)", s:"Group size"},
+  {id:"tseason", t:"text", q:"Best season to ride", s:"Best season"},
+  {id:"tperm", t:"one", q:"Permits (ACAP, restricted area, TIMS)", s:"Permits", opts:["We arrange them","Customer arranges","Depends on the tour"]},
+  {id:"tcustom", t:"one", q:"Do you plan custom tours on request?", s:"Custom tours", opts:["Yes","No"]},
+  {t:"note", q:"Please send photos and videos from each tour on WhatsApp."}
+]},
+{ id:"team", title:"Team and trust", lead:"People trust a website with real faces and real numbers.", qs:[
+  {id:"why", t:"long", q:"Top 3 to 5 reasons riders should choose you", s:"Why choose us", hint:"For example own mechanic on every tour, newest bikes, since 2015."},
+  {id:"nums", t:"long", q:"Numbers to show", s:"Numbers", hint:"Years in business, riders served, tours done, kilometres ridden, countries of customers."},
+  {id:"team", t:"group", q:"Team members to show", item:"Person", add:"Add another person", rows:3, fields:[
+    {k:"name", l:"Name", w:"full"},
+    {k:"role", l:"Role"},
+    {k:"yrs", l:"Years riding", im:"numeric"}
+  ]},
+  {id:"awards", t:"text", q:"Certificates, awards or partners", s:"Awards / partners"},
+  {t:"note", q:"Please send 5 to 10 of your best customer reviews (screenshots are fine) on WhatsApp."}
+]},
+{ id:"media", title:"Photos and videos", lead:"Real photos sell better than any design.", qs:[
+  {id:"mplan", t:"one", q:"How will you share photos and videos?", s:"Photo plan", opts:["Google Drive folder","WhatsApp","I only have a few","I need help"]},
+  {id:"mhave", t:"many", q:"Do you have any of these?", s:"Have", opts:["Drone footage","Promo video","YouTube channel","Instagram reels"]},
+  {id:"mcust", t:"one", q:"Can we use customer photos if they agree?", s:"Customer photos", opts:["Yes","No"]},
+  {t:"note", q:"Tip: in WhatsApp, send photos as Document (paperclip, then Document) so the quality stays full."}
+]},
+{ id:"book", title:"Booking on WhatsApp", lead:"What happens when a customer taps Book.", qs:[
+  {id:"bfields", t:"many", q:"What should the WhatsApp booking message include?", s:"Booking message includes", opts:["Name","Bike or tour","Start date","End date","Number of riders","Country","Licence type"]},
+  {id:"bform", t:"one", q:"Booking method", s:"Booking method", opts:["WhatsApp only","WhatsApp + email form"]},
+  {id:"bapps", t:"many", q:"Also show buttons for", s:"Other chat buttons", opts:["Messenger","Instagram","Viber","Telegram","None"]},
+  {id:"breply", t:"text", q:"Who replies to WhatsApp, and how fast?", s:"Who replies"},
+  {id:"bpay", t:"one", q:"Online advance payment later?", s:"Online payment", opts:["Yes, later","No"]}
+]},
+{ id:"content", title:"Extra content", lead:"Pages and words that help Google bring you customers.", qs:[
+  {id:"faq", t:"long", q:"Questions customers ask you most (up to 10)", s:"FAQ"},
+  {id:"blog", t:"one", q:"Travel guide or blog pages", s:"Blog", opts:["Yes, you write them","Yes, I will write","Not now"]},
+  {id:"svc", t:"many", q:"Other services to show", s:"Other services", opts:["Airport pickup","Hotel booking","Bike repair","Bike storage","Gear rental","Trekking","Jeep tours","Bike sales"]},
+  {id:"wlang", t:"many", q:"Website language", s:"Website language", opts:["English","Nepali","Hindi","Chinese","German","Hebrew"]},
+  {id:"news", t:"one", q:"Email signup for news and offers", s:"Email signup", opts:["Yes","No"]}
+]},
+{ id:"social", title:"Social media and Google", lead:"Links to put in the footer, and words to rank for.", qs:[
+  {id:"tt", t:"text", q:"TikTok link", s:"TikTok"},
+  {id:"yt", t:"text", q:"YouTube link", s:"YouTube"},
+  {id:"ta", t:"text", q:"TripAdvisor link", s:"TripAdvisor"},
+  {id:"src", t:"one", q:"Where do most customers find you now?", s:"Customers find me via", opts:["Facebook","Instagram","Google","TripAdvisor","Word of mouth","Hotels and agents","Other"]},
+  {id:"kw", t:"long", q:"What would a tourist type in Google to find you?", s:"Search words", hint:"For example: bike rent Pokhara, Royal Enfield rental Kathmandu."},
+  {id:"comp", t:"text", q:"Competitors you want to beat on Google", s:"Competitors"}
+]},
+{ id:"tech", title:"Domain and updates", lead:"Last section.", qs:[
+  {id:"dom", t:"one", q:"Is aonemotorbikerentalandtours.com bought already?", s:"Domain", opts:["Yes, bought","Not yet","Not sure"]},
+  {id:"domw", t:"text", q:"Where did you buy it, and who has the login?", s:"Domain login with"},
+  {id:"bmail", t:"one", q:"Do you want a business email like info@aonemotorbikerentalandtours.com?", s:"Business email", opts:["Yes","No"]},
+  {id:"upd", t:"one", q:"Who will change prices, bikes and tours later?", s:"Updates by", opts:["I will","You do it for me","Not sure"]},
+  {id:"when", t:"text", q:"When do you want the website live?", s:"Launch date"},
+  {id:"budget", t:"text", q:"Budget", s:"Budget"},
+  {id:"other", t:"long", q:"Anything else you want on the website?", s:"Anything else"}
+]}
+];
+
+const REVIEW = SECTIONS.length;
+let S = { a:{}, step:0 };
+try {
+  const raw = localStorage.getItem(KEY);
+  if (raw) { const p = JSON.parse(raw); if (p && typeof p.a === "object" && p.a) S = { a:p.a, step:+p.step||0 }; }
+} catch (e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+function h(tag, props, ...kids){
+  const e = document.createElement(tag);
+  if (props) for (const k in props){
+    const v = props[k];
+    if (v == null || v === false) continue;
+    if (k === "class") e.className = v;
+    else if (k === "text") e.textContent = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  kids.flat().forEach(c => { if (c != null) e.append(c.nodeType ? c : document.createTextNode(c)); });
+  return e;
+}
+
+function qText(q){
+  const id = "q-" + q.id;
+  const f = q.t === "long"
+    ? h("textarea", { id, rows:3, placeholder:q.ph || "" })
+    : h("input", { id, type:"text", placeholder:q.ph || "", inputmode:q.im || "text", autocomplete:"off" });
+  f.value = S.a[q.id] || "";
+  f.addEventListener("input", () => { S.a[q.id] = f.value; changed(); });
+  return h("div", { class:"q" }, h("label", { for:id, class:"ql", text:q.q }), q.hint ? h("p", { class:"hint", text:q.hint }) : null, f);
+}
+
+function qChoice(q){
+  const many = q.t === "many";
+  const items = q.opts.map((o, i) => {
+    const inp = h("input", { type: many ? "checkbox" : "radio", name:"q-" + q.id, value:o });
+    const lab = h("label", { class:"chip" }, inp, h("span", { text:o }));
+    return { o, inp, lab };
+  });
+  function sync(){
+    const cur = S.a[q.id];
+    items.forEach(it => {
+      const on = many ? Array.isArray(cur) && cur.includes(it.o) : cur === it.o;
+      it.inp.checked = on;
+      it.lab.classList.toggle("on", on);
+    });
+  }
+  items.forEach(it => {
+    if (many) it.inp.addEventListener("change", () => {
+      S.a[q.id] = items.filter(x => x.inp.checked).map(x => x.o);
+      sync(); changed();
+    });
+    else it.inp.addEventListener("click", () => {
+      S.a[q.id] = S.a[q.id] === it.o ? "" : it.o;
+      sync(); changed();
+    });
+  });
+  sync();
+  return h("fieldset", { class:"q" },
+    h("legend", { class:"ql", text:q.q }),
+    q.hint ? h("p", { class:"hint", text:q.hint }) : null,
+    h("div", { class:"chips" }, items.map(it => it.lab)));
+}
+
+function qGroup(q){
+  const saved = Array.isArray(S.a[q.id]) ? S.a[q.id] : [];
+  const n = Math.max(q.rows, saved.length);
+  S.a[q.id] = Array.from({ length:n }, (_, i) => saved[i] && typeof saved[i] === "object" ? saved[i] : {});
+  const list = h("div", { class:"rows" });
+  function buildRow(i){
+    const preset = q.preset && q.preset[i];
+    const row = h("div", { class:"row" }, h("h3", { text: preset || q.item + " " + (i + 1) }));
+    q.fields.forEach(f => {
+      if (preset && f.k === "model") return;
+      const id = `q-${q.id}-${i}-${f.k}`;
+      const inp = f.t === "long"
+        ? h("textarea", { id, rows:3, placeholder:f.ph || "" })
+        : h("input", { id, type:"text", placeholder:f.ph || "", inputmode:f.im || "text", autocomplete:"off" });
+      inp.value = S.a[q.id][i][f.k] || "";
+      inp.addEventListener("input", () => { S.a[q.id][i][f.k] = inp.value; changed(); });
+      row.append(h("label", { class:"f" + (f.w === "full" ? " full" : ""), for:id }, h("span", { text:f.l }), inp));
+    });
+    return row;
+  }
+  for (let i = 0; i < n; i++) list.append(buildRow(i));
+  return h("div", { class:"q" },
+    h("p", { class:"ql", text:q.q }),
+    q.hint ? h("p", { class:"hint", text:q.hint }) : null,
+    list,
+    h("button", { type:"button", class:"btn ghost", text:q.add, onclick(){
+      S.a[q.id].push({});
+      list.append(buildRow(S.a[q.id].length - 1));
+      changed();
+    }}));
+}
+
+function buildQ(q){
+  if (q.t === "note") return h("p", { class:"note", text:q.q });
+  if (q.t === "one" || q.t === "many") return qChoice(q);
+  if (q.t === "group") return qGroup(q);
+  return qText(q);
+}
+
+function isFilled(q){
+  const v = S.a[q.id];
+  if (q.t === "group") return Array.isArray(v) && v.some(r => Object.values(r).some(x => String(x).trim() !== ""));
+  if (Array.isArray(v)) return v.length > 0;
+  return typeof v === "string" && v.trim() !== "";
+}
+const allQs = SECTIONS.flatMap(s => s.qs.filter(q => q.t !== "note"));
+
+const stage = document.getElementById("stage");
+const panels = SECTIONS.map((s, i) => {
+  const p = h("section", { class:"panel", hidden:true },
+    h("div", null, h("h2", { text:s.title }), h("p", { class:"lead", text:s.lead })),
+    s.qs.map(buildQ));
+  stage.append(p);
+  return p;
+});
+const review = h("section", { class:"panel", hidden:true });
+stage.append(review);
+
+const jump = document.getElementById("jump");
+SECTIONS.forEach((s, i) => jump.append(h("option", { value:i, text:`${i + 1}. ${s.title}` })));
+jump.append(h("option", { value:REVIEW, text:"Check and send" }));
+jump.addEventListener("change", () => go(+jump.value));
+
+function summary(){
+  const d = new Date().toLocaleDateString("en-GB", { day:"numeric", month:"short", year:"numeric" });
+  const lines = ["*A1 Motorbike Rental & Tours: website answers*", d, ""];
+  let any = false;
+  SECTIONS.forEach((s, i) => {
+    const out = [];
+    s.qs.forEach(q => {
+      if (q.t === "note") return;
+      const v = S.a[q.id];
+      if (q.t === "group") {
+        (v || []).forEach((r, n) => {
+          const parts = q.fields.filter(f => r[f.k] && String(r[f.k]).trim()).map(f => `${f.l}: ${String(r[f.k]).trim()}`);
+          if (parts.length) out.push(`${q.preset && q.preset[n] ? q.preset[n] : q.item + " " + (n + 1)}: ${parts.join(" | ")}`);
+        });
+      } else if (Array.isArray(v)) {
+        if (v.length) out.push(`${q.s}: ${v.join(", ")}`);
+      } else if (typeof v === "string" && v.trim()) {
+        out.push(`${q.s}: ${v.trim()}`);
+      }
+    });
+    if (out.length) { any = true; lines.push(`*${i + 1}. ${s.title}*`, ...out, ""); }
+  });
+  return { text:lines.join("\n").trim(), any };
+}
+
+function waHref(text){
+  const base = SEND_TO ? `https://wa.me/${SEND_TO}` : "https://wa.me/";
+  const tooLong = encodeURIComponent(text).length > 4500;
+  const t = tooLong ? "Hello, here are my website answers. They are long, so I am pasting them in the next message." : text;
+  return { href:`${base}?text=${encodeURIComponent(t)}`, tooLong };
+}
+
+function renderReview(){
+  const { text, any } = summary();
+  const wa = waHref(text);
+  const out = h("textarea", { class:"out", readonly:true, "aria-label":"Your answers", value:"" });
+  out.value = any ? text : "No answers yet. Go back and fill in what you can.";
+  const msg = h("p", { id:"msg", role:"status", "aria-live":"polite" });
+  function copy(){
+    if (!any) return;
+    const ok = () => { msg.textContent = "Copied. Now paste it in the WhatsApp chat."; };
+    const fail = () => { out.focus(); out.select(); msg.textContent = "Press and hold the text, then tap Copy."; };
+    try { navigator.clipboard.writeText(text).then(ok, fail); } catch (e) { fail(); }
+  }
+  const send = h("a", { class:"btn big", href:wa.href, target:"_blank", rel:"noopener", text:"Send answers on WhatsApp" });
+  if (!any) { send.setAttribute("aria-disabled", "true"); send.style.opacity = ".4"; send.style.pointerEvents = "none"; }
+  send.addEventListener("click", () => {
+    if (!any) return;
+    try { navigator.clipboard.writeText(text).catch(() => {}); } catch (e) {}
+    msg.textContent = wa.tooLong
+      ? "Your answers are long. They are copied: paste them in the chat after WhatsApp opens, then press send."
+      : "WhatsApp is opening. Choose the chat and press send.";
+  });
+  let armed = false, timer = 0;
+  const clear = h("button", { type:"button", class:"link", text:"Erase all my answers", onclick(){
+    if (!armed) { armed = true; clear.textContent = "Tap again to erase everything"; timer = setTimeout(() => { armed = false; clear.textContent = "Erase all my answers"; }, 4000); return; }
+    clearTimeout(timer);
+    S = { a:{}, step:0 }; save(); location.reload();
+  }});
+  review.replaceChildren(
+    h("div", null, h("h2", { text:"Check and send" }), h("p", { class:"lead", text:"Read your answers below. If something is missing, tap Back or use Go to at the top. Then send." })),
+    out,
+    h("div", { class:"actions" }, send, h("button", { type:"button", class:"btn ghost big", text:"Copy answers", onclick:copy }), msg),
+    h("p", { class:"note", text:"Photos, logo and voice notes: send them separately on WhatsApp. Choose Document for full quality." }),
+    clear);
+}
+
+function updateMeta(){
+  const n = allQs.filter(isFilled).length;
+  document.getElementById("answered").textContent = `${n} of ${allQs.length} answered`;
+}
+function changed(){ save(); updateMeta(); }
+
+const back = document.getElementById("back"), next = document.getElementById("next");
+function go(i){
+  S.step = Math.max(0, Math.min(REVIEW, i));
+  panels.forEach((p, k) => { p.hidden = k !== S.step; });
+  review.hidden = S.step !== REVIEW;
+  if (S.step === REVIEW) renderReview();
+  jump.value = String(S.step);
+  const total = SECTIONS.length + 1;
+  document.getElementById("barfill").style.width = ((S.step + 1) / total * 100) + "%";
+  document.getElementById("stepLabel").textContent = S.step === REVIEW ? "Last step" : `Section ${S.step + 1} of ${SECTIONS.length}`;
+  document.getElementById("navCount").textContent = `${S.step + 1} / ${total}`;
+  back.disabled = S.step === 0;
+  next.hidden = S.step === REVIEW;
+  next.textContent = S.step === SECTIONS.length - 1 ? "Check and send" : "Next";
+  updateMeta(); save();
+  window.scrollTo({ top:0 });
+}
+back.addEventListener("click", () => go(S.step - 1));
+next.addEventListener("click", () => go(S.step + 1));
+go(S.step);
+</script>
+</body></html>
