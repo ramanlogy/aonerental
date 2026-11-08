@@ -702,3 +702,7 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 .bk-img .sws{top:auto;bottom:12px;right:12px}
 .bk-img .sw{padding:4px 12px 4px 4px}
 .bk-img .sw span{display:inline}
+
+/* Gear page */
+.gear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:28px 0}
+.gear-grid .pbox{margin-bottom:0}
