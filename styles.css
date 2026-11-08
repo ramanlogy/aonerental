@@ -706,3 +706,15 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 /* Gear page */
 .gear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:28px 0}
 .gear-grid .pbox{margin-bottom:0}
+
+/* Desktop "More" menu */
+.links{align-items:center}
+.more{position:relative}
+.more summary{list-style:none;cursor:pointer;transition:color .2s;display:flex;align-items:center;gap:4px}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:"";width:5px;height:5px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+.more[open] summary::after{transform:rotate(225deg) translate(-1px,-1px)}
+.more summary:hover,.more[open] summary,.more[data-active] summary{color:var(--ink)}
+.more-menu{position:absolute;top:calc(100% + 14px);left:-14px;min-width:160px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:6px;box-shadow:var(--shadow);display:flex;flex-direction:column;z-index:60}
+.more-menu a{padding:9px 12px;border-radius:9px;font-size:14px;white-space:nowrap}
+.more-menu a:hover{background:var(--surface)}

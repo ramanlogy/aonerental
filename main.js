@@ -213,3 +213,11 @@ document.querySelectorAll('.sws').forEach(function (g) {
     box.style.background = b.dataset.bg;
   });
 });
+
+/* Close the desktop "More" menu on outside click or Escape */
+(function () {
+  var d = document.querySelector('.more');
+  if (!d) return;
+  document.addEventListener('click', function (e) { if (d.open && !d.contains(e.target)) d.open = false; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') d.open = false; });
+})();
