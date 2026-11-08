@@ -145,15 +145,34 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
     return Promise.resolve();
   }
   function sync() { wa.href = 'https://wa.me/' + NUM + '?text=' + encodeURIComponent(msg.value); }
+  var st = document.getElementById('enq-start'), en = document.getElementById('enq-end'), bike = '';
+  function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function nice(v) {
+    if (!v) return '';
+    var p = v.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  function build() {
+    msg.value = 'Hi Aone Rental, I would like to rent the ' + bike + ' in Pokhara.\n\nStart date: ' + nice(st.value) +
+      '\nEnd date: ' + nice(en.value) + '\n\nPlease send availability and pricing. Thank you!';
+    sync();
+  }
+  st.addEventListener('change', function () {
+    en.min = st.value || iso(new Date());
+    if (en.value && en.value < st.value) en.value = st.value;
+    build();
+  });
+  en.addEventListener('change', build);
   document.querySelectorAll('.enq').forEach(function (b) {
     b.addEventListener('click', function () {
-      var n = b.dataset.bike;
-      document.getElementById('enq-bike').textContent = n;
-      msg.value = 'Hi Aone Rental, I would like to rent the ' + n + ' in Pokhara.\n\nDates: \nNumber of days: \nPick-up date: \n\nPlease send the prices and availability. Thank you!';
+      bike = b.dataset.bike;
+      document.getElementById('enq-bike').textContent = bike;
+      st.value = ''; en.value = '';
+      st.min = en.min = iso(new Date());
       note.textContent = '';
       fb.href = 'https://m.me/' + FB;
       vb.href = 'viber://chat?number=%2B' + NUM;
-      sync();
+      build();
       dlg.showModal();
     });
   });

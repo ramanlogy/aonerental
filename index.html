@@ -18,7 +18,7 @@
 <link rel="icon" href="images/favicon-64.png" type="image/png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preload" as="image" href="images/journey/rock-cliffs-group.webp" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=16">
+<link rel="stylesheet" href="styles.css?v=18">
 
 <script type="application/ld+json">
 {
@@ -339,7 +339,7 @@
 <section class="section" id="gallery">
   <div class="wrap">
     <div class="sec-head"><div><h2>On the road.</h2></div><a class="link-arrow" href="gallery.html">View all photos</a></div>
-    <div class="reel-wrap"><div class="reel" tabindex="0" aria-label="Photo reel, scroll sideways"><figure class="reel-i reveal"><img src="images/journey/mustang-village.webp" alt="Riders on motorbikes on a dirt road below sandstone cliffs and a village" width="1280" height="959" loading="lazy" decoding="async"><figcaption><span>Lower Mustang</span>Dirt road below the cliffs</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/annapurna-ridge.webp" alt="Two motorbikes parked at a viewpoint in front of a snow-covered mountain" width="1200" height="1600" loading="lazy" decoding="async"><figcaption><span>Annapurna</span>Viewpoint stop</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/xpulse-pair.webp" alt="Two riders on bikes on a Pokhara road" width="1200" height="1600" loading="lazy" decoding="async"><figcaption><span>Pokhara</span>XPulse pair</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/red-dirt-bike.webp" alt="A rider on a red and white dirt bike outside a shop" width="1200" height="1600" loading="lazy" decoding="async"><figcaption><span>Pokhara</span>Dirt bike day</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/shop-front-riders.webp" alt="Three riders with helmets outside the Aone Motorbike Rental and Tours shop" width="1200" height="1600" loading="lazy" decoding="async"><figcaption><span>Lakeside</span>Ready to roll</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/himalayan-pokhara.webp" alt="Royal Enfield Himalayan on a Pokhara road" width="1204" height="1600" loading="lazy" decoding="async"><figcaption><span>Pokhara</span>Himalayan 450</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/sunset-rider.webp" alt="A rider on a motorbike at sunset" width="1206" height="1599" loading="lazy" decoding="async"><figcaption><span>Hills</span>Golden hour</figcaption></figure></div></div>
+    <div class="reel-wrap"><div class="reel" tabindex="0" aria-label="Photo reel, scroll sideways"><figure class="reel-i reveal"><img src="images/journey/mustang-village.webp" alt="Riders on motorbikes on a dirt road below sandstone cliffs and a village" width="1280" height="959" loading="lazy" decoding="async"><figcaption><span>Lower Mustang</span>Dirt road below the cliffs</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/annapurna-ridge.webp" alt="Two motorbikes parked at a viewpoint in front of a snow-covered mountain" width="1200" height="1600" loading="lazy" decoding="async"><figcaption><span>Annapurna</span>Viewpoint stop</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/xpulse-pair.webp" alt="Two riders on bikes on a Pokhara road" width="1200" height="1600" loading="lazy" decoding="async"><figcaption><span>Pokhara</span>XPulse pair</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/shop-front-riders.webp" alt="Three riders with helmets outside the Aone Motorbike Rental and Tours shop" width="1200" height="1600" loading="lazy" decoding="async"><figcaption><span>Lakeside</span>Ready to roll</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/himalayan-pokhara.webp" alt="Royal Enfield Himalayan on a Pokhara road" width="1204" height="1600" loading="lazy" decoding="async"><figcaption><span>Pokhara</span>Himalayan 450</figcaption></figure><figure class="reel-i reveal"><img src="images/journey/sunset-rider.webp" alt="A rider on a motorbike at sunset" width="1206" height="1599" loading="lazy" decoding="async"><figcaption><span>Hills</span>Golden hour</figcaption></figure></div></div>
     <div class="cta-row sec-foot"><a class="btn btn-ghost" href="gallery.html">View all photos</a><a class="link-arrow" href="customer-journey.html">Follow the customer journey</a></div>
   </div>
 </section>
@@ -395,7 +395,7 @@
       </details>
       <details>
         <summary>Where are you located?</summary>
-        <p>Hallan Chowk, Pokhara, Gandaki Province 33700, Nepal.</p>
+        <p>Hallan Chowk, Lakeside, Pokhara, Gandaki Province 33700, Nepal.</p>
       </details>
       <details>
         <summary>Can I rent riding gear from Aone Rental?</summary>
@@ -432,7 +432,11 @@
 <dialog class="enq-dlg" id="enq" aria-labelledby="enq-t">
   <form method="dialog"><button class="enq-x" aria-label="Close">&times;</button></form>
   <h2 id="enq-t">Enquire about <span id="enq-bike"></span></h2>
-  <p>Your message is ready. Pick an app, add your dates, and send.</p>
+  <p>Choose your start and end dates, pick an app, and send.</p>
+  <div class="enq-dates">
+    <label>Start date<input type="date" id="enq-start"></label>
+    <label>End date<input type="date" id="enq-end"></label>
+  </div>
   <textarea id="enq-msg" rows="6" aria-label="Your message"></textarea>
   <div class="enq-opts">
     <a class="btn enq-wa" id="enq-wa" rel="noopener" target="_blank">WhatsApp</a>
@@ -463,6 +467,6 @@
   </defs>
 </svg>
 
-<script src="main.js?v=10" defer></script>
+<script src="main.js?v=11" defer></script>
 </body>
 </html>

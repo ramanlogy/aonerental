@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="images/favicon-64.png" type="image/png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=16">
+<link rel="stylesheet" href="styles.css?v=18">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -198,7 +198,11 @@
 <dialog class="enq-dlg" id="enq" aria-labelledby="enq-t">
   <form method="dialog"><button class="enq-x" aria-label="Close">&times;</button></form>
   <h2 id="enq-t">Enquire about <span id="enq-bike"></span></h2>
-  <p>Your message is ready. Pick an app, add your dates, and send.</p>
+  <p>Choose your start and end dates, pick an app, and send.</p>
+  <div class="enq-dates">
+    <label>Start date<input type="date" id="enq-start"></label>
+    <label>End date<input type="date" id="enq-end"></label>
+  </div>
   <textarea id="enq-msg" rows="6" aria-label="Your message"></textarea>
   <div class="enq-opts">
     <a class="btn enq-wa" id="enq-wa" rel="noopener" target="_blank">WhatsApp</a>
@@ -228,6 +232,6 @@
   </defs>
 </svg>
 
-<script src="main.js?v=10" defer></script>
+<script src="main.js?v=11" defer></script>
 </body>
 </html>

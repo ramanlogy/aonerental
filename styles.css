@@ -103,9 +103,8 @@ h3{font-size:1.5rem;letter-spacing:-.02em;line-height:1.15}
 .g{border-radius:var(--r-card)}
 .g1{grid-column:span 4;grid-row:span 2}
 .g2{grid-column:span 2;grid-row:span 2}
-.g3{grid-column:span 2}
-.g4{grid-column:span 2}
-.g5{grid-column:span 2}
+.g3{grid-column:span 3}
+.g4{grid-column:span 3}
 
 /* FAQ */
 .faq{background:var(--surface)}
@@ -172,7 +171,6 @@ h3{font-size:1.5rem;letter-spacing:-.02em;line-height:1.15}
   .g1{grid-column:span 2;grid-row:span 1}
   .g2{grid-column:span 1;grid-row:span 2}
   .g3,.g4{grid-column:span 1}
-  .g5{grid-column:span 2}
   .score{flex-direction:column;align-items:flex-start;gap:12px}
   .quote{padding:26px}
   .btn{font-size:16px;padding:13px 22px}
@@ -718,3 +716,8 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 .more-menu{position:absolute;top:calc(100% + 14px);left:-14px;min-width:160px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:6px;box-shadow:var(--shadow);display:flex;flex-direction:column;z-index:60}
 .more-menu a{padding:9px 12px;border-radius:9px;font-size:14px;white-space:nowrap}
 .more-menu a:hover{background:var(--surface)}
+
+/* Enquiry dates */
+.enq-dates{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.enq-dates label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-2)}
+.enq-dates input{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;min-width:0;width:100%}
