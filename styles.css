@@ -686,3 +686,19 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 #reviews .rv-photos{display:flex;gap:6px}
 #reviews .rp{width:56px;height:56px;aspect-ratio:auto;border-radius:8px;flex:none}
 .links a.x{display:none}
+
+/* Bike photos: show the whole bike on its own backdrop, clear of the title overlay */
+.tile-img.ph img,.bk-img.ph img{object-fit:contain;object-position:center;box-sizing:border-box;padding:8px 8px 46px}
+.bk-img.ph img{padding:10px}
+@media (max-width:640px){.tile-img.ph img{padding:6px 6px 36px}}
+/* Colour options */
+.sws{position:absolute;top:10px;right:10px;display:flex;gap:6px;z-index:2}
+.sw{display:inline-flex;align-items:center;gap:7px;border:2px solid rgba(255,255,255,.9);background:rgba(20,20,24,.55);color:#fff;border-radius:999px;padding:3px;cursor:pointer;font:inherit;font-size:13px;line-height:1;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.sw i{display:block;width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+.sw span{display:none}
+.sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 2px rgba(0,0,0,.55)}
+.sw:not([aria-pressed="true"]){border-color:transparent}
+.sw:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.bk-img .sws{top:auto;bottom:12px;right:12px}
+.bk-img .sw{padding:4px 12px 4px 4px}
+.bk-img .sw span{display:inline}

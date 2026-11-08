@@ -2,7 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://SITE_DOMAIN/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
   <url><loc>https://SITE_DOMAIN/bikes.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://SITE_DOMAIN/delivery.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://SITE_DOMAIN/reviews.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://SITE_DOMAIN/gallery.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://SITE_DOMAIN/faq.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -28,8 +27,8 @@
   <url><loc>https://SITE_DOMAIN/rent-triumph-scrambler-400-xc-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://SITE_DOMAIN/rent-royal-enfield-scram-411-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://SITE_DOMAIN/rent-royal-enfield-classic-350-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://SITE_DOMAIN/rent-crossfire-250-enduro-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://SITE_DOMAIN/rent-hero-xpulse-200-4v-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://SITE_DOMAIN/rent-tvs-ntorq-125-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://SITE_DOMAIN/rent-honda-dio-110-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://SITE_DOMAIN/rent-ktm-390-adventure-r-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://SITE_DOMAIN/rent-hero-xpulse-210-pokhara.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

@@ -149,7 +149,7 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
     b.addEventListener('click', function () {
       var n = b.dataset.bike;
       document.getElementById('enq-bike').textContent = n;
-      msg.value = 'Hi A One Rental, I would like to rent the ' + n + ' in Pokhara.\n\nDates: \nNumber of days: \nPick-up / hotel: \n\nPlease send the price and availability. Thank you!';
+      msg.value = 'Hi Aone Rental, I would like to rent the ' + n + ' in Pokhara.\n\nDates: \nNumber of days: \nPick-up date: \n\nPlease send the prices and availability. Thank you!';
       note.textContent = '';
       fb.href = 'https://m.me/' + FB;
       vb.href = 'viber://chat?number=%2B' + NUM;
@@ -199,3 +199,17 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
   }
   requestAnimationFrame(tick);
 })();
+
+// Colour options: swap the bike photo and backdrop.
+document.querySelectorAll('.sws').forEach(function (g) {
+  var box = g.parentElement, img = box.querySelector('img');
+  g.addEventListener('click', function (e) {
+    var b = e.target.closest('.sw');
+    if (!b || !img) return;
+    g.querySelectorAll('.sw').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    img.style.visibility = '';
+    img.src = decodeURIComponent(b.dataset.src);
+    img.alt = b.dataset.alt;
+    box.style.background = b.dataset.bg;
+  });
+});
