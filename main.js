@@ -126,7 +126,7 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
     d.querySelector('summary').addEventListener('click', function (e) {
       e.preventDefault();
       var willOpen = !d.open || d.classList.contains('closing');
-      if (willOpen) items.forEach(function (o) { if (o !== d && o.open) run(o, false); });
+      if (willOpen && !d.closest('[data-multi]')) items.forEach(function (o) { if (o !== d && o.open) run(o, false); });
       run(d, willOpen);
     });
   });
@@ -186,37 +186,66 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
   dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
 })();
 
-// Hero slideshow: crossfades the photos until a hero video replaces it.
+// Hero slideshow: crossfades the photos. Each photo is fetched and decoded only
+// when its turn comes, and nothing runs while the hero is off screen.
 (function () {
   var box = document.querySelector('.hero-show');
   if (!box) return;
-  var s = box.querySelectorAll('.hs'), cap = box.querySelector('.hs-cap'), i = 0;
+  var s = Array.prototype.slice.call(box.querySelectorAll('.hs')), cap = box.querySelector('.hs-cap'), i = 0;
   function label() { var c = s[i].dataset.cap; cap.textContent = c; cap.classList.toggle('show', !!c); }
   label();
   if (s.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var visible = true, busy = false;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(box);
+  }
+  function prep(img) {
+    if (img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); }
+    if (img.decode) return img.decode();
+    return new Promise(function (ok, no) {
+      if (img.complete) { if (img.naturalWidth) ok(); else no(); return; }
+      img.addEventListener('load', ok, { once: true });
+      img.addEventListener('error', no, { once: true });
+    });
+  }
   setInterval(function () {
-    s[i].classList.remove('on'); i = (i + 1) % s.length; s[i].classList.add('on'); label();
+    if (!visible || busy || document.hidden) return;
+    busy = true;
+    var n = (i + 1) % s.length;
+    prep(s[n]).then(function () {
+      s[i].classList.remove('on'); i = n; s[i].classList.add('on'); label(); busy = false;
+    }, function () {
+      s.splice(n, 1); if (n < i) i--; busy = false;
+    });
   }, 4500);
 })();
 
-/* Reviews strip: slow auto-scroll, pauses on interaction */
+/* Reviews strip: slow auto-scroll. Runs only while the strip is on screen,
+   and steps aside while the page is being scrolled or the strip is touched. */
 (function () {
   var el = document.querySelector('#reviews .rv-list');
   if (!el || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-  var paused = false, pos = 0, dir = 1, last = 0;
-  ['mouseenter', 'touchstart', 'focusin', 'pointerdown'].forEach(function (e) { el.addEventListener(e, function () { paused = true; }, { passive: true }); });
-  ['mouseleave', 'touchend', 'focusout'].forEach(function (e) { el.addEventListener(e, function () { pos = el.scrollLeft; paused = false; }, { passive: true }); });
+  var paused = false, pos = 0, dir = 1, last = 0, max = 0, raf = 0, quietAt = 0;
+  ['mouseenter', 'touchstart', 'focusin', 'pointerdown'].forEach(function (e) { el.addEventListener(e, function () { paused = true; el.style.scrollSnapType = ''; }, { passive: true }); });
+  ['mouseleave', 'touchend', 'focusout'].forEach(function (e) { el.addEventListener(e, function () { pos = el.scrollLeft; paused = false; el.style.scrollSnapType = 'none'; }, { passive: true }); });
   el.addEventListener('wheel', function () { pos = el.scrollLeft; }, { passive: true });
+  window.addEventListener('scroll', function () { quietAt = performance.now() + 250; }, { passive: true });
+  el.style.scrollSnapType = 'none'; // snapping fights the slow drift and makes it jump
+  function measure() { max = el.scrollWidth - el.clientWidth; }
+  window.addEventListener('resize', measure, { passive: true });
   function tick(t) {
-    var max = el.scrollWidth - el.clientWidth;
-    if (!paused && max > 0 && last) {
+    if (!paused && max > 0 && last && t >= quietAt) {
       pos += dir * 0.025 * (t - last);
       if (pos >= max) { pos = max; dir = -1; } else if (pos <= 0) { pos = 0; dir = 1; }
       el.scrollLeft = pos;
     }
-    last = t; requestAnimationFrame(tick);
+    last = t; raf = requestAnimationFrame(tick);
   }
-  requestAnimationFrame(tick);
+  function start() { if (!raf) { last = 0; measure(); raf = requestAnimationFrame(tick); } }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { if (e[0].isIntersecting) start(); else stop(); }).observe(el);
+  } else start();
 })();
 
 // Colour options: swap the bike photo and backdrop.
