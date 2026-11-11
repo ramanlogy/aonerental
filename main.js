@@ -269,3 +269,65 @@ document.querySelectorAll('.sws').forEach(function (g) {
   document.addEventListener('click', function (e) { if (d.open && !d.contains(e.target)) d.open = false; });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') d.open = false; });
 })();
+
+// Tour pages: highlight the section chip in the sticky jump bar.
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.jump a'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var map = {};
+  links.forEach(function (a) { var el = document.querySelector(a.getAttribute('href')); if (el) map[el.id] = a; });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      links.forEach(function (a) { a.classList.remove('on'); });
+      var a = map[en.target.id];
+      if (a) { a.classList.add('on'); a.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
+    });
+  }, { rootMargin: '-35% 0px -60% 0px' });
+  Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
+})();
+
+// Tour pages: interactive route line (draw-in on scroll, hover/tap a stop for details).
+(function () {
+  document.querySelectorAll('.rt').forEach(function (fig) {
+    var data; try { data = JSON.parse(fig.querySelector('.rt-data').textContent); } catch (e) { return; }
+    var pts = Array.prototype.slice.call(fig.querySelectorAll('.rt-p'));
+    var card = fig.querySelector('.rt-card');
+    var sc = fig.querySelector('.rt-scroll');
+    var cur = -1;
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function center(k) {
+      var b = pts[k].getBoundingClientRect(), r = sc.getBoundingClientRect();
+      var dx = b.left + b.width / 2 - (r.left + r.width / 2);
+      if (Math.abs(dx) > 4) sc.scrollBy({ left: dx, behavior: 'smooth' });
+    }
+    function set(k, scroll) {
+      if (k === cur) { if (scroll) center(k); return; }
+      cur = k;
+      pts.forEach(function (p, i) { p.classList.toggle('on', i === k); });
+      var d = data[k];
+      card.innerHTML = '<p class="rt-k">' + esc(d.k) + ' · ' + esc(d.p) + ' · ' + esc(d.a) + '</p>' +
+        '<h3>' + esc(d.t) + '</h3>' + (d.c ? '<ul class="chips">' + d.c + '</ul>' : '') +
+        (d.h ? '<a class="rt-go" href="' + d.h + '">See day details</a>' : '');
+      card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+      if (scroll) center(k);
+    }
+    pts.forEach(function (p, i) {
+      p.addEventListener('mouseenter', function () { set(i, false); });
+      p.addEventListener('click', function () { set(i, true); });
+      p.addEventListener('focus', function () { set(i, true); });
+      p.addEventListener('keydown', function (e) {
+        var k = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : -1;
+        if (k >= 0 && k < pts.length) { e.preventDefault(); pts[k].focus(); }
+        else if ((e.key === 'Enter' || e.key === ' ') && data[i].h) { e.preventDefault(); location.hash = data[i].h; }
+      });
+    });
+    set(0, false);
+    var done = function () { fig.classList.add('in'); setTimeout(function () { fig.classList.add('ready'); }, 2000); };
+    if (!('IntersectionObserver' in window)) return done();
+    var io = new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) { done(); io.disconnect(); }
+    }, { threshold: 0.2 });
+    io.observe(fig);
+  });
+})();
