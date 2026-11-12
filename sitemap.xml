@@ -6,6 +6,7 @@
   <url><loc>https://SITE_DOMAIN/gallery.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://SITE_DOMAIN/gear.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://SITE_DOMAIN/faq.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://SITE_DOMAIN/terms.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://SITE_DOMAIN/contact.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://SITE_DOMAIN/customer-journey.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://SITE_DOMAIN/team.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>

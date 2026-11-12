@@ -999,3 +999,13 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 .tp-main,.tp-side{min-width:0}.rt{max-width:100%}
 @media (min-width:980px){.tp-side{align-self:start}}
 .rt-place{font-size:15px}.rt-day{font-size:12px}.rt-alt{font-size:12.5px}
+/* Terms page */
+.terms-list{list-style:none;padding:0;margin:28px 0;max-width:720px}
+.terms-list .pbox p{margin:0 0 10px;line-height:1.55}
+.terms-list .pbox p:last-child{margin-bottom:0}
+.foot-link{color:inherit;text-decoration:underline;text-underline-offset:3px}
+/* Tour hero: show a tall photo whole, with a blurred fill behind it */
+.tp-hero.fit{aspect-ratio:3/4}
+.tp-hero.fit img{position:relative;object-fit:contain;object-position:50% 50%}
+.tp-hero.fit .fit-bg{position:absolute;inset:0;object-fit:cover;filter:blur(20px) brightness(.85);transform:scale(1.15)}
+@media (min-width:601px){.tp-hero.fit{aspect-ratio:16/9}}
