@@ -730,7 +730,7 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 .more-menu a:hover{background:var(--surface)}
 
 /* Enquiry dates */
-.enq-dates{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.enq-dates{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:0 0 12px}
 .enq-dates label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-2)}
 .enq-dates input{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;min-width:0;width:100%}
 
@@ -1137,3 +1137,11 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 
 /* More rides */
 .tp .sec-h2{font-size:clamp(1.35rem,3vw,1.65rem);margin-top:64px}
+.enq-ppl{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-2);margin:0 0 12px}
+.enq-ppl select{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:46px;width:100%}
+/* Bike page booking card */
+.rk-card{margin-top:20px;max-width:460px}
+.rk-form{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.rk-btns{margin-top:12px;flex-wrap:wrap}
+.rk-btns .btn{flex:1 1 180px}
+.rk-card .bc-k{margin-bottom:10px}

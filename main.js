@@ -152,11 +152,23 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
     var p = v.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
     return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   }
+  var ppl = document.getElementById('enq-ppl');
+  function days() {
+    if (!st.value || !en.value) return 0;
+    var a = st.value.split('-'), b = en.value.split('-');
+    return Math.round((Date.UTC(+b[0], +b[1] - 1, +b[2]) - Date.UTC(+a[0], +a[1] - 1, +a[2])) / 864e5) + 1;
+  }
   function build() {
-    msg.value = 'Hi Aone Rental, I would like to rent the ' + bike + ' in Pokhara.\n\nStart date: ' + nice(st.value) +
-      '\nEnd date: ' + nice(en.value) + '\n\nPlease send availability and pricing. Thank you!';
+    var d = days(), n = ppl ? +ppl.value : 1;
+    msg.value = 'Hi Aone Rental, I want to book the ' + bike + ' in Pokhara.\n\n' +
+      'Start date: ' + (nice(st.value) || 'not fixed yet') +
+      '\nEnd date: ' + (nice(en.value) || 'not fixed yet') +
+      (d ? '\nRental: ' + d + (d > 1 ? ' days' : ' day') : '') +
+      '\nPeople: ' + n +
+      '\n\nPlease confirm availability and the price. Thank you!';
     sync();
   }
+  if (ppl) ppl.addEventListener('change', build);
   st.addEventListener('change', function () {
     en.min = st.value || iso(new Date());
     if (en.value && en.value < st.value) en.value = st.value;
@@ -164,10 +176,11 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
   });
   en.addEventListener('change', build);
   document.querySelectorAll('.enq').forEach(function (b) {
-    b.addEventListener('click', function () {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
       bike = b.dataset.bike;
       document.getElementById('enq-bike').textContent = bike;
-      st.value = ''; en.value = '';
+      st.value = ''; en.value = ''; if (ppl) ppl.value = '1';
       st.min = en.min = iso(new Date());
       note.textContent = '';
       fb.href = 'https://m.me/' + FB;
@@ -386,5 +399,38 @@ document.querySelectorAll('.bk-form').forEach(function (f) {
     btn.href = 'https://wa.me/' + NUM + '?text=' + encodeURIComponent(lines.join('\n'));
   }
   [date, riders, bike].forEach(function (el) { el.addEventListener('change', build); });
+  build();
+});
+
+/* Bike page booking card: dates and people fill a ready-made WhatsApp
+   message. Without JS the button still opens WhatsApp with the short text. */
+document.querySelectorAll('.rk-form').forEach(function (f) {
+  var btn = f.closest('.bookcard').querySelector('.rk-wa');
+  var st = f.querySelector('[name=start]'), en = f.querySelector('[name=end]'), ppl = f.querySelector('[name=people]');
+  var total = f.querySelector('.bk-total'), bike = f.dataset.bike;
+  function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function utc(v) { var p = v.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }
+  function nice(v) {
+    if (!v) return 'not fixed yet';
+    var p = v.split('-');
+    return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  st.min = en.min = iso(new Date());
+  function build() {
+    var d = st.value && en.value ? Math.round((utc(en.value) - utc(st.value)) / 864e5) + 1 : 0, n = +ppl.value;
+    total.textContent = d ? 'Rental: ' + d + (d > 1 ? ' days' : ' day') : '';
+    var text = 'Hi Aone Rental, I want to book the ' + bike + ' in Pokhara.\n\n' +
+      'Start date: ' + nice(st.value) + '\nEnd date: ' + nice(en.value) +
+      (d ? '\nRental: ' + d + (d > 1 ? ' days' : ' day') : '') +
+      '\nPeople: ' + n + '\n\nPlease confirm availability and the price. Thank you!';
+    btn.href = 'https://wa.me/9779815139239?text=' + encodeURIComponent(text);
+  }
+  st.addEventListener('change', function () {
+    en.min = st.value || iso(new Date());
+    if (en.value && en.value < st.value) en.value = st.value;
+    build();
+  });
+  en.addEventListener('change', build);
+  ppl.addEventListener('change', build);
   build();
 });
