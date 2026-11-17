@@ -1009,3 +1009,32 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 .tp-hero.fit img{position:relative;object-fit:contain;object-position:50% 50%}
 .tp-hero.fit .fit-bg{position:absolute;inset:0;object-fit:cover;filter:blur(20px) brightness(.85);transform:scale(1.15)}
 @media (min-width:601px){.tp-hero.fit{aspect-ratio:16/9}}
+
+/* Reviews page: vertical Google Maps style feed */
+#reviews.rv-feed .rv-list{display:block;overflow:visible;max-width:680px;margin:8px 0 32px;padding:0}
+#reviews.rv-feed .rv,#reviews.rv-feed .rv:first-child{display:flex;flex-direction:column;gap:10px;padding:24px 0;border:0;border-top:1px solid var(--line);border-radius:0;flex:none}
+#reviews.rv-feed .rv:first-child{border-top:0}
+#reviews.rv-feed .rv-head{margin-bottom:6px;gap:12px}
+#reviews.rv-feed .rv-av{width:40px;height:40px}
+#reviews.rv-feed .rv-head h3{font-size:16px;letter-spacing:0}
+#reviews.rv-feed .rv-meta{font-size:13px}
+#reviews.rv-feed .stars-sm{margin:0 0 6px;max-width:none}
+#reviews.rv-feed .rv-text{-webkit-line-clamp:5;max-width:none}
+#reviews.rv-feed .rv-text.open{display:block;-webkit-line-clamp:unset}
+#reviews.rv-feed .rv-text p{font-size:15px;line-height:1.55;letter-spacing:0}
+#reviews.rv-feed .rv-text p+p{display:block;margin-top:.6em}
+.rv-more{background:none;border:0;padding:4px 0 0;font:inherit;font-size:14px;font-weight:600;color:var(--accent-link);cursor:pointer}
+#reviews.rv-feed .rv-link{margin-top:8px;font-size:14px}
+#reviews.rv-feed .rv-photos{display:flex;flex-wrap:wrap;gap:6px}
+#reviews.rv-feed .rp{width:96px;height:96px;border-radius:8px;flex:none}
+@media (max-width:640px){#reviews.rv-feed .rp{width:calc((100% - 18px)/4);height:auto;aspect-ratio:1}}
+
+/* How it works page: step labels and document checklist */
+.chapter .c-step{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-link);margin:0 0 6px;max-width:none}
+.c-copy .c-note{font-size:15px;color:var(--ink-2);border-left:3px solid var(--line);padding-left:12px;margin-top:-12px}
+.c-list{list-style:none;margin:0;padding:0;background:var(--surface);border-radius:var(--r-card);overflow:hidden}
+.c-list li{display:flex;flex-direction:column;gap:4px;padding:20px 24px;border-top:1px solid var(--line)}
+.c-list li:first-child{border-top:0}
+.c-list strong{font-size:17px}
+.c-list span{font-size:15px;color:var(--ink-2);line-height:1.45}
+.c-list a,.c-copy p a{color:var(--accent-link)}

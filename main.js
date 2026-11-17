@@ -224,7 +224,7 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
    and steps aside while the page is being scrolled or the strip is touched. */
 (function () {
   var el = document.querySelector('#reviews .rv-list');
-  if (!el || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  if (!el || el.closest('.rv-feed') || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
   var paused = false, pos = 0, dir = 1, last = 0, max = 0, raf = 0, quietAt = 0;
   ['mouseenter', 'touchstart', 'focusin', 'pointerdown'].forEach(function (e) { el.addEventListener(e, function () { paused = true; el.style.scrollSnapType = ''; }, { passive: true }); });
   ['mouseleave', 'touchend', 'focusout'].forEach(function (e) { el.addEventListener(e, function () { pos = el.scrollLeft; paused = false; el.style.scrollSnapType = 'none'; }, { passive: true }); });
@@ -331,3 +331,17 @@ document.querySelectorAll('.sws').forEach(function (g) {
     io.observe(fig);
   });
 })();
+
+/* Reviews page: Google Maps style "More" toggle on long reviews */
+document.querySelectorAll('.rv-feed .rv-text').forEach(function (t) {
+  if (t.scrollHeight <= t.clientHeight + 2) return;
+  var b = document.createElement('button');
+  b.type = 'button'; b.className = 'rv-more'; b.textContent = 'More';
+  b.setAttribute('aria-expanded', 'false');
+  b.addEventListener('click', function () {
+    var open = t.classList.toggle('open');
+    b.textContent = open ? 'Less' : 'More';
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  t.after(b);
+});
