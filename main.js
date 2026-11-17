@@ -164,7 +164,7 @@ document.querySelectorAll('.tile-img img').forEach(function (img) {
       'Start date: ' + (nice(st.value) || 'not fixed yet') +
       '\nEnd date: ' + (nice(en.value) || 'not fixed yet') +
       (d ? '\nRental: ' + d + (d > 1 ? ' days' : ' day') : '') +
-      '\nPeople: ' + n +
+      '\nNumber of bikes: ' + n +
       '\n\nPlease confirm availability and the price. Thank you!';
     sync();
   }
@@ -402,11 +402,11 @@ document.querySelectorAll('.bk-form').forEach(function (f) {
   build();
 });
 
-/* Bike page booking card: dates and people fill a ready-made WhatsApp
+/* Bike page booking card: dates and number of bikes fill a ready-made WhatsApp
    message. Without JS the button still opens WhatsApp with the short text. */
 document.querySelectorAll('.rk-form').forEach(function (f) {
   var btn = f.closest('.bookcard').querySelector('.rk-wa');
-  var st = f.querySelector('[name=start]'), en = f.querySelector('[name=end]'), ppl = f.querySelector('[name=people]');
+  var st = f.querySelector('[name=start]'), en = f.querySelector('[name=end]'), ppl = f.querySelector('[name=bikes]');
   var total = f.querySelector('.bk-total'), bike = f.dataset.bike;
   function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
   function utc(v) { var p = v.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }
@@ -422,7 +422,7 @@ document.querySelectorAll('.rk-form').forEach(function (f) {
     var text = 'Hi Aone Rental, I want to book the ' + bike + ' in Pokhara.\n\n' +
       'Start date: ' + nice(st.value) + '\nEnd date: ' + nice(en.value) +
       (d ? '\nRental: ' + d + (d > 1 ? ' days' : ' day') : '') +
-      '\nPeople: ' + n + '\n\nPlease confirm availability and the price. Thank you!';
+      '\nNumber of bikes: ' + n + '\n\nPlease confirm availability and the price. Thank you!';
     btn.href = 'https://wa.me/9779815139239?text=' + encodeURIComponent(text);
   }
   st.addEventListener('change', function () {
