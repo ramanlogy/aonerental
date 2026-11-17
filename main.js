@@ -281,7 +281,15 @@ document.querySelectorAll('.sws').forEach(function (g) {
       if (!en.isIntersecting) return;
       links.forEach(function (a) { a.classList.remove('on'); });
       var a = map[en.target.id];
-      if (a) { a.classList.add('on'); a.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
+      // Scroll only the chip bar sideways. scrollIntoView also moved the page
+      // vertically and broke the user's scroll mid-swipe.
+      if (a) {
+        a.classList.add('on');
+        var bar = a.parentNode, ar = a.getBoundingClientRect(), br = bar.getBoundingClientRect();
+        var l = ar.left - br.left + bar.scrollLeft, r = l + ar.width;
+        if (l < bar.scrollLeft) bar.scrollTo({ left: l - 16, behavior: 'smooth' });
+        else if (r > bar.scrollLeft + bar.clientWidth) bar.scrollTo({ left: r - bar.clientWidth + 16, behavior: 'smooth' });
+      }
     });
   }, { rootMargin: '-35% 0px -60% 0px' });
   Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
@@ -344,4 +352,39 @@ document.querySelectorAll('.rv-feed .rv-text').forEach(function (t) {
     b.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
   t.after(b);
+});
+
+/* Tour booking card: date, group size and bike fill a ready-made WhatsApp
+   message. Without JS the button still opens WhatsApp with the short text. */
+document.querySelectorAll('.bk-form').forEach(function (f) {
+  var card = f.closest('.bookcard'), btn = card && card.querySelector('.bk-wa');
+  if (!btn) return;
+  var NUM = '9779815139239', tour = f.dataset.tour, price = +f.dataset.price || 0;
+  var date = f.querySelector('[name=date]'), riders = f.querySelector('[name=riders]'), bike = f.querySelector('[name=bike]');
+  var total = f.querySelector('.bk-total'), label = date.closest('label').firstChild.textContent;
+  var t = new Date();
+  date.min = t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2);
+  function usd(n) { return '$' + n.toLocaleString('en-US'); }
+  function nice(v) {
+    if (!v) return 'not fixed yet';
+    var p = v.split('-');
+    return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  function build() {
+    var n = +riders.value;
+    var lines = ['Hi Aone Rental, I want to book the ' + tour + ' tour (' + f.dataset.days + ').', '',
+      label + ': ' + nice(date.value),
+      'Riders: ' + n,
+      'Bike: ' + (bike.value || 'not sure, please suggest one')];
+    if (price) {
+      lines.push('Price: ' + usd(price) + ' x ' + n + ' = ' + usd(price * n) + ' USD');
+      total.textContent = 'Total for ' + n + (n > 1 ? ' riders: ' : ' rider: ') + usd(price * n) + ' USD';
+    } else {
+      total.textContent = 'We send the price on WhatsApp.';
+    }
+    lines.push('', 'Please confirm availability and the final price. Thank you!');
+    btn.href = 'https://wa.me/' + NUM + '?text=' + encodeURIComponent(lines.join('\n'));
+  }
+  [date, riders, bike].forEach(function (el) { el.addEventListener('change', build); });
+  build();
 });

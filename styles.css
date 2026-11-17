@@ -1043,3 +1043,97 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 .hero-full .hero-scrim{background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.1) 32%,rgba(0,0,0,.35) 60%,rgba(0,0,0,.8) 100%),linear-gradient(90deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 65%)}
 .bc-price{font-size:1.9rem;font-weight:700;letter-spacing:-.03em;margin:2px 0 8px}
 .bc-price span{font-size:.95rem;font-weight:600;color:var(--ink-2)}
+
+/* Tour booking card form */
+.bk-form{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:10px;margin:0 0 4px}
+.bk-f{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:500;color:var(--ink-2);min-width:0}
+.bk-wide{grid-column:1/-1}
+.bk-f input,.bk-f select{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:46px;width:100%;min-width:0}
+.bk-f input:focus-visible,.bk-f select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.bk-total{grid-column:1/-1;font-size:15px;font-weight:600;color:var(--ink);margin:4px 0 0}
+.bk-total:empty{display:none}
+
+/* ===== Tour page: calmer hierarchy (2026-11-17) =====
+   Scale: h1 > section h2 > day h3 > body 16px > meta 13px.
+   Fewer grey boxes: grouping comes from spacing and hairlines. */
+.tp{--tp-body:16px}
+.tp h1.pg{font-size:clamp(1.85rem,4.4vw,2.7rem);line-height:1.08;margin-bottom:10px;max-width:22ch}
+.tp-kicker{font-size:13px;font-weight:500;color:var(--ink-2);letter-spacing:0;margin-bottom:8px}
+.tp-lead{font-size:16px;line-height:1.55;color:var(--ink-2);letter-spacing:0;max-width:60ch}
+@media (min-width:760px){.tp-lead{font-size:17px}}
+
+/* Key facts: one quiet bar with dividers instead of three heavy boxes */
+.tp .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:16px;background:var(--surface);border-radius:18px;padding:4px 0}
+.tp .stats>div{background:none;border-radius:0;padding:12px 14px}
+.tp .stats>div+div{border-left:1px solid var(--line)}
+.tp .stats dt{font-size:12px;white-space:nowrap}
+.tp .stats dd{font-size:clamp(1.2rem,4.6vw,1.6rem);margin-top:4px}
+.tp .stats dd.sub{font-size:12px;margin-top:2px}
+@media (max-width:420px){.tp .stats dt .i{display:none}.tp .stats>div{padding:10px 12px}}
+@media (min-width:760px){.tp .stats>div{padding:16px 22px}}
+.tp-season{font-size:13.5px;margin-top:12px}
+
+/* Sections */
+.tp-sec{padding-top:44px}
+.tp-sec>h2{font-size:clamp(1.35rem,3vw,1.65rem);letter-spacing:-.02em;line-height:1.15;margin-bottom:12px}
+.tp-p{font-size:var(--tp-body);line-height:1.6;color:var(--ink)}
+.tp .fine{font-size:12.5px;margin-top:12px}
+
+/* Highlights: plain checklist, no boxes */
+.tp .hl{gap:10px 28px;margin-top:16px}
+.tp .hl li{background:none;border-radius:0;padding:0;font-size:15px;line-height:1.45;gap:10px}
+.tp .hl .i{width:16px;height:16px;margin-top:2px}
+
+/* Route figure */
+.tp .rt{margin-bottom:28px;border-radius:18px}
+.rt-head strong{font-size:14px}
+.rt-head figcaption span{font-size:12px}
+.rt-card{min-height:96px}
+.rt-card h3{font-size:1rem}
+
+/* Day timeline: one number, quiet meta line, short body */
+.tp .tl-k{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tp .tl-i{grid-template-columns:28px 1fr;gap:14px;padding-bottom:26px}
+.tp .tl-n{width:28px;height:28px;font-size:13px}
+.tp .tl-n.tl-t{width:12px;height:12px;margin:8px 0 0 8px;font-size:0}
+/* Timed steps (day trip): the time is the label, the marker is a small dot */
+.tp .tl-i:has(.tl-t) .tl-k{position:static;width:auto;height:auto;clip:auto;overflow:visible;font-size:12.5px;font-weight:600;color:var(--accent-link);text-transform:none;letter-spacing:0;margin-bottom:2px}
+.tp .tl-i:has(.tl-t)::before{top:26px}
+.tp .tl-i::before{left:13px;top:34px;bottom:6px;width:1.5px}
+.tp .tl-c{padding-top:3px}
+.tp .tl-c h3{font-size:1.05rem;line-height:1.3;margin:0 0 6px}
+.tp .tl-c .chips{gap:4px 14px;margin-bottom:8px}
+.tp .tl-c .chips li,.tp .rt-card .chips li{background:none;padding:0;border-radius:0;font-size:13px;font-weight:500;color:var(--ink-2);gap:5px}
+.tp .tl-c>p:last-child{font-size:15px;line-height:1.55}
+@media (min-width:601px){
+  .tp .tl-i{grid-template-columns:32px 1fr;gap:18px;padding-bottom:30px}
+  .tp .tl-n{width:32px;height:32px;font-size:14px}
+  .tp .tl-n.tl-t{width:12px;height:12px;margin:8px 0 0 10px}
+  .tp .tl-i::before{left:15px;top:38px}
+}
+
+/* Included / not included: outlined, lighter */
+.tp .inc{gap:12px}
+.tp .inc>div{background:none;border:1px solid var(--line);padding:16px 18px}
+.tp .inc h3{font-size:.95rem}
+.tp .inc ul{gap:8px}
+.tp .inc li,.tp .gtk li,.tp .need li{font-size:14.5px}
+.tp .inc .i,.tp .gtk .i,.tp .need .i{width:16px;height:16px;margin-top:2px}
+
+/* Permits: neutral note instead of a blue box */
+.tp .callout{background:var(--surface);border:0;padding:16px 18px}
+.tp .callout h3{font-size:.95rem;margin-bottom:6px}
+.tp .callout p{font-size:15px}
+.tp .gtk{gap:10px;margin-top:16px}
+
+/* Sidebar: booking card stays the one elevated thing */
+.tp .bookcard h2{font-size:1.3rem}
+.tp .bc-p{font-size:14px}
+.tp .bc-note{font-size:12.5px}
+.tp .sidecard{background:none;border:1px solid var(--line);padding:16px 18px}
+.tp .sidecard h3{font-size:.95rem}
+.tp .bikes a{font-size:14.5px}
+.tp .bikes a span{font-size:12px}
+
+/* More rides */
+.tp .sec-h2{font-size:clamp(1.35rem,3vw,1.65rem);margin-top:64px}
