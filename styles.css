@@ -1041,3 +1041,5 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 
 /* Home hero: extra shade on the text side so bright skies and snow never wash out the headline */
 .hero-full .hero-scrim{background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.1) 32%,rgba(0,0,0,.35) 60%,rgba(0,0,0,.8) 100%),linear-gradient(90deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 65%)}
+.bc-price{font-size:1.9rem;font-weight:700;letter-spacing:-.03em;margin:2px 0 8px}
+.bc-price span{font-size:.95rem;font-weight:600;color:var(--ink-2)}
