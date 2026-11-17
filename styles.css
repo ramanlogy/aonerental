@@ -1145,3 +1145,46 @@ h1.pg{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
 .rk-btns{margin-top:12px;flex-wrap:wrap}
 .rk-btns .btn{flex:1 1 180px}
 .rk-card .bc-k{margin-bottom:10px}
+
+/* Tour page: gallery + facts beside a sticky booking card (2026-11-17) */
+.tp .tp-head{max-width:none}
+.tp .tp-meta{order:0;margin:10px 0 0;font-size:15px;color:var(--ink-2)}
+.tp .tp-grid{margin-top:20px}
+.tp .tp-lead{color:var(--ink)}
+.tg{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+.tg::-webkit-scrollbar{display:none}
+.tg-i{margin:0;flex:0 0 86%;aspect-ratio:4/3;border-radius:16px;scroll-snap-align:center}
+.tg-i img{object-position:50% 50%}
+.tg-all{flex:0 0 42%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:16px;background:var(--surface);color:var(--accent-link);font-size:14px;font-weight:600;scroll-snap-align:center}
+@media (min-width:700px){
+  .tg{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));height:clamp(320px,38vw,440px);overflow:hidden;margin:0;padding:0;border-radius:var(--r-card);position:relative}
+  .tg-i{aspect-ratio:auto;border-radius:0}
+  .tg-main{grid-row:1/3}
+  .tg-all{position:absolute;right:12px;bottom:12px;flex-direction:row;gap:6px;padding:8px 14px;border-radius:var(--r-pill);background:rgba(0,0,0,.6);color:#fff;font-size:13px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .tg-all:hover{background:rgba(0,0,0,.75)}
+}
+.tf{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:1fr;gap:16px 28px}
+.tf li{display:flex;gap:12px;align-items:flex-start}
+.tf .i{flex:none;color:var(--ink);margin-top:1px}
+.tf-t{font-size:15px;font-weight:600;color:var(--ink);line-height:1.35}
+.tf-s{font-size:13.5px;color:var(--ink-2);line-height:1.4;margin-top:2px}
+@media (min-width:600px){.tf{grid-template-columns:1fr 1fr}}
+.tp-cards{display:grid;grid-template-columns:1fr;gap:16px}
+.tp-cards .sidecard{margin:0}
+@media (min-width:700px){.tp-cards{grid-template-columns:1fr 1fr}}
+@media (min-width:980px){
+  .tp .tp-grid{grid-template-columns:minmax(0,1fr) 360px;gap:40px}
+  .tp .tp-side{position:sticky;top:72px;margin-top:0;align-self:start}
+  .tp .bookcard{max-height:calc(100vh - 88px);overflow-y:auto}
+}
+/* Phone and tablet: price + Book button fixed to the bottom of the screen */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.08);transition:transform .25s}
+.mbar.hide{transform:translateY(110%)}
+.mb-p{font-size:19px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.mb-p span{display:block;font-size:12px;font-weight:400;color:var(--ink-2);letter-spacing:0}
+.mbar .mb-btn{flex:none;padding:11px 22px;font-size:15px}
+body:has(.mbar){padding-bottom:72px}
+@media (min-width:980px){.mbar{display:none}body:has(.mbar){padding-bottom:0}}
+.tf .i{width:22px;height:22px}
+.tp .tp-lead+.tp-p{margin-top:14px}
+@media (max-width:979px){body:has(.mbar:not(.hide)) .fab{bottom:calc(84px + env(safe-area-inset-bottom))}}

@@ -434,3 +434,10 @@ document.querySelectorAll('.rk-form').forEach(function (f) {
   ppl.addEventListener('change', build);
   build();
 });
+
+/* Tour pages, phone: hide the bottom Book bar while the booking card is on screen. */
+(function () {
+  var bar = document.querySelector('.mbar'), card = document.querySelector('.tp-side .bookcard');
+  if (!bar || !card || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function (en) { bar.classList.toggle('hide', en[0].isIntersecting); }).observe(card);
+})();
