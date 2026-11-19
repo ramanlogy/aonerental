@@ -389,7 +389,11 @@ document.querySelectorAll('.bk-form').forEach(function (f) {
       label + ': ' + nice(date.value),
       'Riders: ' + n,
       'Bike: ' + (bike.value || 'not sure, please suggest one')];
-    if (price) {
+    var min = +f.dataset.min || 1;
+    if (price && n < min) {
+      lines.push('Price: please quote for ' + n + (n > 1 ? ' riders' : ' rider'));
+      total.textContent = usd(price) + ' per rider is for groups of ' + min + '+. For ' + n + (n > 1 ? ' riders' : ' rider') + ', we send the price on WhatsApp.';
+    } else if (price) {
       lines.push('Price: ' + usd(price) + ' x ' + n + ' = ' + usd(price * n) + ' USD');
       total.textContent = 'Total for ' + n + (n > 1 ? ' riders: ' : ' rider: ') + usd(price * n) + ' USD';
     } else {
