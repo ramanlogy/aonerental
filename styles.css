@@ -478,6 +478,7 @@ h1.pg{font-size:clamp(2rem,4.8vw,3.5rem);letter-spacing:-.025em;max-width:none;m
 .cta-band{text-align:left}
 .cta-band .section-lead{margin-bottom:32px}
 .faq .faq-in>div:first-child .link-arrow{margin-top:8px}
+.faq-more{margin-top:28px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;color:var(--ink-2);font-size:16px}
 
 /* ===== Compact pass: smaller type, tighter spacing, compact fleet ===== */
 body{font-size:15.5px;line-height:1.45}
@@ -1351,3 +1352,47 @@ h3{font-size:1.6rem}
 .lead{line-height:1.4}
 .section-lead{line-height:1.45}
 .tcard-body p{font-size:15px;line-height:1.55}
+
+/* ===== Footer: centred, dark tyre-track texture (2026-11-24) =====
+   Logo on top, main links, quieter second row, social, then small legal lines. */
+.footer.foot-x{position:relative;isolation:isolate;overflow:hidden;border-top:3px solid var(--accent);padding:64px 0 104px;text-align:center;color:rgba(255,255,255,.72);font-size:14px;
+  background-color:#120c2c;
+  background-image:
+    radial-gradient(ellipse at 50% 0%,rgba(240,144,28,.10),transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg,#1b1240,#100a26)}
+/* Two faint tyre tracks running down the footer */
+.footer.foot-x::before,.footer.foot-x::after{content:"";position:absolute;z-index:-1;top:-20px;bottom:-20px;width:120px;opacity:.07;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='44'%3E%3Cg fill='none' stroke='%23fff' stroke-width='9' stroke-linecap='round'%3E%3Cpath d='M10 34 L34 12 L58 30'/%3E%3Cpath d='M62 30 L86 12 L110 34'/%3E%3C/g%3E%3C/svg%3E") repeat-y center/120px 44px}
+.footer.foot-x::before{left:9%;transform:rotate(-6deg)}
+.footer.foot-x::after{right:7%;transform:rotate(5deg)}
+.foot-x-in{display:flex;flex-direction:column;align-items:center}
+.fx-brand{display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff;margin-bottom:34px}
+.fx-brand img{width:88px;height:88px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--accent),0 10px 30px -8px rgba(0,0,0,.6);margin-bottom:12px}
+.fx-name{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:34px;line-height:1;letter-spacing:.02em;color:#fff}
+.fx-sub{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.22em;color:var(--hot)}
+.fx-main,.fx-second{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 40px}
+.fx-main a{font-size:18px;font-weight:500;color:#fff}
+.fx-second{margin-top:18px}
+.fx-second a{font-size:16px;font-weight:500;color:rgba(255,255,255,.82)}
+.foot-x .soc{justify-content:center;margin:36px 0 30px;gap:14px}
+.foot-x .soc a,.foot-x .soc a.soc-fb,.foot-x .soc a.soc-ig,.foot-x .soc a.soc-wa,.foot-x .soc a.soc-vb,.foot-x .soc a.soc-mp{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);color:#fff}
+.foot-x .soc a.soc-fb:hover{background:#1877f2}.foot-x .soc a.soc-ig:hover{background:#d6249f}.foot-x .soc a.soc-wa:hover{background:#25d366}.foot-x .soc a.soc-vb:hover{background:#7360f2}.foot-x .soc a.soc-mp:hover{background:#ea4335}
+.foot-x .soc a:hover{box-shadow:none}
+.foot-x p{margin:0}
+.fx-addr{font-size:14px}
+.fx-legal{margin-top:10px!important;font-size:13px}
+.fx-legal a,.fx-addr a{color:rgba(255,255,255,.88)}
+.fx-copy{margin-top:22px!important;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;color:rgba(255,255,255,.6);width:min(100%,560px)}
+.foot-x a{transition:color .2s}
+.foot-x .fx-main a:hover,.foot-x .fx-second a:hover,.foot-x .fx-legal a:hover,.foot-x .fx-addr a:hover{color:var(--hot)}
+.fx-brand:hover .fx-name{color:#fff}
+@media (max-width:600px){
+  .footer.foot-x{padding:48px 0 104px}
+  .fx-name{font-size:28px}
+  .fx-main{gap:4px 24px}
+  .fx-main a{font-size:17px;padding:6px 0}
+  .fx-second{gap:4px 22px;margin-top:10px}
+  .fx-second a{font-size:15px;padding:6px 0}
+  .footer.foot-x::before{left:-30px}.footer.foot-x::after{right:-30px}
+}
